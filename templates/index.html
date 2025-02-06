@@ -1,10 +1,26 @@
 {% extends "base.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Amrzxk{% endblock %}
 
 {% block content %}
   <section class="hero">
-    <h1>Welcome to My Portfolio</h1>
-    <p>My name is Amr Zakariya and i'm a Devops Enginner.</p>
+    <div class="hero-content">
+      <h1>Welcome to My Portfolio</h1>
+      <p class="intro-text">
+        My name is Amr Zakariya and I'm an aspiring DevOps Engineer.
+        I'm a Computer Science and AI student at Helwan University with
+        a strong focus on AWS cloud technologies, DevOps, and security.
+        I have experience in backend development using Python,
+        building efficient and scalable applications.
+        My skills include cloud architecture, automation,
+        infrastructure as code, and secure system design.
+        Through certifications and hands-on projects,
+        I’ve developed a deep understanding of backend logic,
+        API integrations, and cloud-native solutions.
+        I enjoy solving complex problems, optimizing systems,
+        and continuously expanding my expertise in cloud computing.
+      </p>
+      <a href="{{ url_for('projects') }}" class="cta-button">View My Projects</a>
+    </div>
   </section>
 {% endblock %}

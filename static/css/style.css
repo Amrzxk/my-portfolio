@@ -6,39 +6,79 @@
   }
   
   body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
     color: #333;
+    line-height: 1.6;
   }
   
   /* Navbar Styles */
-  .navbar {
-    background: #2C3E50;
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(44, 62, 80, 0.95);
     color: #ECF0F1;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 2rem;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    padding: 15px 20px;
+    z-index: 1000;
+    transition: all 0.3s ease;
   }
   
+  /* Brand styling */
   .navbar .brand {
     font-size: 1.8rem;
-    font-weight: bold;
+    font-weight: 700;
   }
   
+  /* Hamburger (for mobile) */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+  }
+  
+  .hamburger span {
+    width: 25px;
+    height: 3px;
+    background: #ECF0F1;
+    margin-bottom: 4px;
+    border-radius: 2px;
+  }
+  
+  /* Toggle Button for collapsing navbar */
+.toggle-navbar {
+    background-color: transparent;
+    border: none;               /* Remove the white border */
+    color: #ECF0F1;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .toggle-navbar:hover {
+    background-color: rgba(236, 240, 241, 0.2);
+    border-radius: 4px;
+  }
+  
+  
+  /* Navigation Links */
   .nav-links {
     list-style: none;
     display: flex;
-    gap: 1rem;
+    gap: 20px;
+    transition: opacity 0.3s ease;
   }
   
   .nav-links li a {
     text-decoration: none;
-    color: inherit;
-    padding: 0.5rem 1rem;
+    color: #ECF0F1;
+    font-weight: 600;
+    padding: 5px 10px;
     transition: background 0.3s ease;
   }
   
@@ -47,40 +87,33 @@
     border-radius: 4px;
   }
   
-  /* Hamburger Menu Styling */
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
+  /* Collapsed Navbar styles */
+  .navbar.collapsed {
+    height: 50px;  /* Minimal height when collapsed */
+    padding: 5px 20px;
   }
   
-  .hamburger span {
-    height: 3px;
-    width: 25px;
-    background: #ECF0F1;
-    margin-bottom: 5px;
-    border-radius: 2px;
+  .navbar.collapsed .nav-links {
+    display: none;  /* Hide the nav links when collapsed */
   }
+  
+  /* When collapsed, adjust the toggle button text (handled via JS) */
   
   /* Responsive Styles for Mobile Devices */
-  @media (max-width: 768px) {
+  @media screen and (max-width: 768px) {
     .nav-links {
       position: absolute;
-      top: 70px;
-      right: 0;
-      background: #2C3E50;
+      top: 60px;
+      right: 20px;
+      background: rgba(44, 62, 80, 0.95);
       flex-direction: column;
-      width: 100%;
+      width: 200px;
+      padding: 10px;
+      border-radius: 8px;
       display: none;
     }
     
-    .nav-links li {
-      text-align: center;
-      margin: 1rem 0;
-    }
-    
-    /* When navbar has the "active" class, show the nav links */
-    .navbar.active .nav-links {
+    .nav-links.active {
       display: flex;
     }
     
@@ -103,4 +136,42 @@
     padding: 1rem 0;
     font-size: 0.9rem;
   }
+  .hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    text-align: center;
+    padding: 20px;
+  }
+  .hero-content {
+    max-width: 800px;
+    animation: fadeIn 2s ease-in-out;
+  }
+  .hero h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    animation: slideIn 1.5s ease-in-out;
+  }
   
+  .intro-text {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    animation: slideIn 2s ease-in-out;
+  }
+  
+  .cta-button {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #6a11cb;
+    background: white;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    animation: fadeIn 2.5s ease-in-out;
+  }

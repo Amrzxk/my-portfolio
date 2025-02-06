@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="{{ url_for('static', filename='images/amr.JPG') }}" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/amr.JPG') }}" type="image/x-icon">
   <title>{% block title %}My Portfolio{% endblock %}</title>
   
   <!-- Link to external CSS file -->
@@ -14,11 +17,17 @@
   <header>
     <nav class="navbar" id="navbar">
       <div class="brand">My Portfolio</div>
+      
+      <!-- Hamburger for mobile nav -->
       <div class="hamburger" id="hamburger">
         <span></span>
         <span></span>
         <span></span>
       </div>
+
+      <!-- Toggle button for collapsing/expanding navbar -->
+      <button id="toggle-navbar" class="toggle-navbar">Hide Navbar</button>
+      
       <ul class="nav-links">
         <li><a href="{{ url_for('home') }}">Home</a></li>
         <li><a href="{{ url_for('projects') }}">Projects</a></li>
