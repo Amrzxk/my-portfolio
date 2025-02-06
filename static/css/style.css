@@ -1,0 +1,106 @@
+/* Reset some default styling */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+  }
+  
+  /* Navbar Styles */
+  .navbar {
+    background: #2C3E50;
+    color: #ECF0F1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .navbar .brand {
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .nav-links li a {
+    text-decoration: none;
+    color: inherit;
+    padding: 0.5rem 1rem;
+    transition: background 0.3s ease;
+  }
+  
+  .nav-links li a:hover {
+    background: rgba(236, 240, 241, 0.2);
+    border-radius: 4px;
+  }
+  
+  /* Hamburger Menu Styling */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+  }
+  
+  .hamburger span {
+    height: 3px;
+    width: 25px;
+    background: #ECF0F1;
+    margin-bottom: 5px;
+    border-radius: 2px;
+  }
+  
+  /* Responsive Styles for Mobile Devices */
+  @media (max-width: 768px) {
+    .nav-links {
+      position: absolute;
+      top: 70px;
+      right: 0;
+      background: #2C3E50;
+      flex-direction: column;
+      width: 100%;
+      display: none;
+    }
+    
+    .nav-links li {
+      text-align: center;
+      margin: 1rem 0;
+    }
+    
+    /* When navbar has the "active" class, show the nav links */
+    .navbar.active .nav-links {
+      display: flex;
+    }
+    
+    .hamburger {
+      display: flex;
+    }
+  }
+  
+  /* Main Content Styling */
+  main {
+    padding: 2rem;
+    min-height: 80vh;
+  }
+  
+  /* Footer Styling */
+  footer {
+    background: #2C3E50;
+    color: #ECF0F1;
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 0.9rem;
+  }
+  
