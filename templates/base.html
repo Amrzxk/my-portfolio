@@ -35,7 +35,19 @@
       </ul>
     </nav>
   </header>
-  
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-handle" id="sidebarHandle">
+        <span>More</span>
+    </div>
+    <!-- Sidebar content goes here -->
+    <div class="sidebar-content">
+        <img src="{{ url_for('static', filename='images/amr.JPG') }}" alt="Your Name" class="profile-img">
+        <div class="bio-text">
+            <p>bio text goes here...</p>
+        </div>
+    </div>
+</div>
+<div class="overlay" id="overlay"></div>
   <main>
     {% block content %}
     <!-- Page-specific content will be injected here -->
