@@ -1,85 +1,83 @@
-# Modern Portfolio Website
+# Portfolio Web Application
 
-A modern, responsive portfolio website built with Next.js, TypeScript, and Tailwind CSS. Features smooth animations, dark mode support, and a contact form.
+This is a modern portfolio web application built using Flask and Docker. It showcases projects, contact information, and a clean, responsive design.
 
 ## Features
 
-- 🎨 Modern and clean design
-- 🌓 Dark/Light mode toggle
-- 📱 Fully responsive
-- ✨ Smooth animations and transitions
-- 📝 Contact form with email integration
-- 🚀 Optimized for performance
-- ♿ Accessible
-- 🔍 SEO-friendly
+- **Home Page**: Introduces the portfolio owner.
+- **Projects Page**: Displays a list of projects.
+- **Contact Page**: Provides contact information.
+- **Dockerized Deployment**: Easily deployable using Docker.
+- **CI/CD Pipeline**: Automated checks and deployment using GitHub Actions.
 
 ## Tech Stack
 
-- Next.js 14
-- TypeScript
-- Tailwind CSS
-- Framer Motion
-- EmailJS
-- React Intersection Observer
+- **Backend**: Flask (Python)
+- **Frontend**: HTML, CSS, Jinja2 templates
+- **Containerization**: Docker
+- **CI/CD**: GitHub Actions
 
-## Getting Started
+## Project Structure
 
-1. Install dependencies:
+```
+app.py                # Flask application entry point
+Dockerfile            # Docker configuration for deployment
+docker-compose.yml    # Docker Compose configuration
+requirements.txt      # Python dependencies
+src/                  # Source files for frontend components
+static/               # Static assets (CSS, JS, images)
+templates/            # HTML templates
+.github/workflows/    # GitHub Actions workflows
+```
+
+## How to Run Locally
+
+1. Clone the repository:
    ```bash
-   npm install
+   git clone https://github.com/yourusername/portfolio-web.git
+   cd portfolio-web
    ```
 
-2. Set up EmailJS:
-   - Create an account at [EmailJS](https://www.emailjs.com/)
-   - Create a new email service
-   - Create an email template
-   - Replace the placeholders in `src/components/ContactForm.tsx`:
-     ```typescript
-     'YOUR_SERVICE_ID'
-     'YOUR_TEMPLATE_ID'
-     'YOUR_PUBLIC_KEY'
-     ```
-
-3. Add your project images:
-   - Add your project images to the `public/projects` directory
-   - Update the project data in `src/app/page.tsx`
-
-4. Run the development server:
+2. Install dependencies:
    ```bash
-   npm run dev
+   pip install -r requirements.txt
    ```
 
-5. Build for production:
+3. Run the Flask application:
    ```bash
-   npm run build
+   python app.py
    ```
 
-## Customization
+4. Open your browser and navigate to:
+   ```
+   http://127.0.0.1:5000
+   ```
 
-### Colors
+## How to Run with Docker
 
-The color scheme can be customized in `tailwind.config.ts`. The current theme uses a blue primary color, but you can modify the colors to match your brand.
+1. Build the Docker image:
+   ```bash
+   docker build -t portfolio-app .
+   ```
 
-### Content
+2. Run the Docker container:
+   ```bash
+   docker run -p 5000:5000 portfolio-app
+   ```
 
-1. Update the personal information in `src/app/page.tsx`
-2. Modify the projects data in `src/app/page.tsx`
-3. Customize the navigation links in `src/components/Navigation.tsx`
+3. Open your browser and navigate to:
+   ```
+   http://127.0.0.1:5000
+   ```
 
-### Images
+## CI/CD Pipeline
 
-1. Replace the project images in `public/projects/`
-2. Update the image paths in the projects data
+This project uses GitHub Actions for CI/CD. The pipeline:
 
-## Deployment
-
-The site can be deployed to any platform that supports Next.js, such as:
-
-- Vercel (recommended)
-- Netlify
-- AWS Amplify
-- Digital Ocean App Platform
+- Lints Python code using `flake8`.
+- Builds the Docker image.
+- Tests the Docker container.
 
 ## License
 
-MIT License - feel free to use this template for your own portfolio!
+This project is licensed under the MIT License. Feel free to use and modify it for your own portfolio!
