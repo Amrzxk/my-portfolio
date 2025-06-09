@@ -1,192 +1,355 @@
-/* Reset some default styling */
+/*--------------------------------------------------------------
+1. CSS Variables & Global Settings
+--------------------------------------------------------------*/
+:root {
+  --clr-primary: #6a0b81;
+  --clr-bg-start: #0f0f0f;
+  --clr-bg-end: #411919;
+  --clr-text-light: #fff;
+  --clr-accent: #ECF0F1;
+  --transition-fast: all 0.3s ease;
+}
+
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    color: #333;
-    line-height: 1.6;
-  }
-  
-  /* Navbar Styles */
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  background: var(--clr-bg-start);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+/*--------------------------------------------------------------
+2. Navbar Styles (Advanced)
+--------------------------------------------------------------*/
 .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: linear-gradient(135deg, #530068, #8a0113);
-    color: #000000;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px 20px;
-    z-index: 1000;
-    transition: all 0.3s ease;
-  }
-  
-  /* Brand styling */
-  .navbar .brand {
-    font-size: 1.8rem;
-    font-weight: 700;
-  }
-  
-  /* Hamburger (for mobile) */
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-  }
-  
-  .hamburger span {
-    width: 25px;
-    height: 3px;
-    background: #ECF0F1;
-    margin-bottom: 4px;
-    border-radius: 2px;
-  }
-  
-  /* Toggle Button for collapsing navbar */
-.toggle-navbar {
-    background-color: transparent;
-    border: none;               /* Remove the white border */
-    color: #ECF0F1;
-    font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
-    cursor: pointer;
-    padding: 5px 10px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .toggle-navbar:hover {
-    background-color: rgba(236, 240, 241, 0.2);
-    border-radius: 4px;
-  }
-  
-  
-  /* Navigation Links */
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    transition: opacity 0.3s ease;
-  }
-  
-  .nav-links li a {
-    text-decoration: none;
-    color: #ECF0F1;
-    font-weight: 600;
-    padding: 5px 10px;
-    transition: background 0.3s ease;
-  }
-  
-  .nav-links li a:hover {
-    background: rgba(236, 240, 241, 0.2);
-    border-radius: 4px;
-  }
-  
-  /* Collapsed Navbar styles */
-  .navbar.collapsed {
-    height: 50px;  /* Minimal height when collapsed */
-    padding: 5px 20px;
-  }
-  
-  .navbar.collapsed .nav-links {
-    display: none;  /* Hide the nav links when collapsed */
-  }
-  
-  /* When collapsed, adjust the toggle button text (handled via JS) */
-  
-  /* Responsive Styles for Mobile Devices */
-  @media screen and (max-width: 768px) {
-    .nav-links {
-      position: absolute;
-      top: 60px;
-      right: 20px;
-      background: rgba(44, 62, 80, 0.95);
-      flex-direction: column;
-      width: 200px;
-      padding: 10px;
-      border-radius: 8px;
-      display: none;
-    }
-    
-    .nav-links.active {
-      display: flex;
-    }
-    
-    .hamburger {
-      display: flex;
-    }
-  }
-  
-  /* Main Content Styling */
-  main {
-    padding: 2rem;
-    min-height: 80vh;
-  }
-  
-  /* Footer Styling */
-  footer {
-    background: #2C3E50;
-    color: #ECF0F1;
-    text-align: center;
-    padding: 1rem 0;
-    font-size: 0.9rem;
-  }
-  .hero {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #0f0f0f, #411919);
-    color: white;
-    text-align: center;
-    padding: 20px;
-  }
-  .hero-content {
-    max-width: 800px;
-    animation: fadeIn 2s ease-in-out;
-  }
-  .hero h1 {
-    font-size: 3.5rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    animation: slideIn 1.5s ease-in-out;
-  }
-  
-  .intro-text {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    animation: slideIn 2s ease-in-out;
-  }
-  
-  .cta-button {
-    display: inline-block;
-    padding: 15px 30px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #0a070eef;
-    background: rgba(255, 255, 255, 0.815);
-    border-radius: 50px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    animation: fadeIn 2.5s ease-in-out;
-  }
-/* Side bar css */
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(15, 15, 15, 0.6);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
+
+.navbar__logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--clr-accent);
+  text-decoration: none;
+}
+.navbar__logo .highlight {
+  color: var(--clr-primary);
+}
+
+.navbar__links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+.navbar__item {}
+
+.navbar__link {
+  position: relative;
+  color: var(--clr-accent);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.25rem 0;
+  transition: color 0.3s ease;
+}
+.navbar__link::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--clr-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.navbar__link:hover {
+  color: var(--clr-primary);
+}
+.navbar__link:hover::after {
+  transform: scaleX(1);
+}
+
+.navbar__controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar__btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--clr-accent);
+  transition: color 0.3s ease;
+}
+.navbar__btn:hover {
+  color: var(--clr-primary);
+}
+
+/* Theme-toggle icons */
+.icon--sun,
+.icon--moon {
+  width: 20px;
+  height: 20px;
+}
+.icon--moon {
+  display: none;
+}
+html.dark .icon--moon {
+  display: block;
+}
+html.dark .icon--sun {
+  display: none;
+}
+
+/* Menu Toggle (Hamburger) */
+.navbar__btn--menu .menu-bar {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--clr-accent);
+  margin: 4px 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.navbar__btn--menu.is-open .menu-bar:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+.navbar__btn--menu.is-open .menu-bar:nth-child(2) {
+  opacity: 0;
+}
+.navbar__btn--menu.is-open .menu-bar:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Full-screen Mobile Menu */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--clr-bg-start);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(100%);
+  transition: transform 0.4s ease;
+  z-index: 900;
+}
+.navbar.menu-open .mobile-menu {
+  transform: translateX(0);
+}
+.mobile-menu__list {
+  list-style: none;
+  text-align: center;
+}
+.mobile-menu__list li {
+  margin: 1rem 0;
+}
+.mobile-menu__list a {
+  color: var(--clr-accent);
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+.mobile-menu__list a:hover {
+  color: var(--clr-primary);
+}
+
+/*--------------------------------------------------------------
+3. Hero Section & Animations
+--------------------------------------------------------------*/
+.hero {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--clr-bg-start), var(--clr-bg-end));
+  color: var(--clr-text-light);
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero-content {
+  max-width: 700px;
+}
+
+#typed-title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  animation: slideIn 1.5s ease-in-out;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.intro-text {
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
+  animation: slideIn 2s ease-in-out;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0a070eef;
+  background: var(--clr-accent);
+  border-radius: 50px;
+  text-decoration: none;
+  overflow: hidden;
+  position: relative;
+  animation: fadeIn 2.5s ease-in-out;
+  transition: var(--transition-fast);
+}
+
+.cta-button:hover {
+  animation: pulse 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pulse {
+  0%,100% { transform: scale(1); }
+  50%     { transform: scale(1.05); }
+}
+
+.scroll-down {
+  position: absolute;
+  bottom: 20px;
+  font-size: 2rem;
+  cursor: pointer;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-10px); }
+}
+
+/*--------------------------------------------------------------
+4. Skills Section
+--------------------------------------------------------------*/
+.skills-section {
+  padding: 4rem 2rem;
+  background: #111;
+  color: var(--clr-accent);
+  text-align: center;
+}
+
+.skills-section h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.skill-cards {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.skill-card {
+  background: #222;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 200px;
+  transition: transform 0.3s ease;
+}
+
+.skill-card:hover {
+  transform: translateY(-5px);
+}
+
+.skill-card img {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 0.75rem;
+}
+
+.skill-card .bar {
+  background: #333;
+  border-radius: 4px;
+  overflow: hidden;
+  height: 8px;
+  margin: 0.5rem 0;
+}
+
+.skill-card .fill {
+  width: var(--percent);
+  height: 100%;
+  background: var(--clr-primary);
+  transition: width 1s ease-in-out;
+}
+
+/*--------------------------------------------------------------
+5. Main & Footer
+--------------------------------------------------------------*/
+main {
+  padding: 2rem;
+  min-height: 80vh;
+}
+
+footer {
+  background: #2C3E50;
+  color: var(--clr-accent);
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+}
+
+/*--------------------------------------------------------------
+6. Sidebar & Overlay
+--------------------------------------------------------------*/
 .sidebar {
   position: fixed;
   left: -250px;
   top: 0;
   height: 100vh;
   width: 250px;
-  background: #6a0b81;
+  background: var(--clr-primary);
   box-shadow: 2px 0 5px rgba(53, 24, 24, 0.664);
   transition: transform 0.3s ease-in-out;
   z-index: 1000;
+}
+
+.sidebar.open {
+  transform: translateX(250px);
 }
 
 .sidebar-content {
@@ -216,13 +379,13 @@
   transform: translateY(-50%);
   width: 60px;
   height: 60px;
-  background: #850202d5;
+  background: rgba(133, 2, 2, 0.84);
   border-radius: 0 15px 15px 0;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease-in-out;
+  transition: var(--transition-fast);
 }
 
 .sidebar-handle span {
@@ -233,9 +396,6 @@
   font-size: 14px;
 }
 
-.sidebar.open {
-  transform: translateX(250px);
-}
 .overlay {
   position: fixed;
   top: 0;
@@ -243,32 +403,37 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999; /* One less than sidebar z-index */
+  z-index: 999;
   opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-  pointer-events: none; /* Disable clicks when hidden */
+  transition: var(--transition-fast);
+  pointer-events: none;
 }
+
 .overlay.active {
   opacity: 1;
-  pointer-events: auto; /* Enable clicks when visible */
+  pointer-events: auto;
 }
+
+/*--------------------------------------------------------------
+7. Responsive Sidebar
+--------------------------------------------------------------*/
 @media (max-width: 768px) {
   .sidebar {
-      width: 80%;
-      left: -80%;
+    width: 80%;
+    left: -80%;
   }
-  
+
   .sidebar.open {
-      transform: translateX(80%);
+    transform: translateX(80%);
   }
-  
+
   .sidebar-handle {
-      right: -45px;
-      width: 45px;
-      height: 50px;
+    right: -45px;
+    width: 45px;
+    height: 50px;
   }
-  
+
   .sidebar-handle span {
-      font-size: 12px;
+    font-size: 12px;
   }
 }

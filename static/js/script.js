@@ -1,97 +1,98 @@
+// Swipe variables and sidebar state
 let touchStartX = 0;
 let touchStartY = 0;
 let touchEndX = 0;
 let touchEndY = 0;
-const swipeThreshold = 50; // Minimum swipe distance in pixels
-const verticalThreshold = 30; // Maximum vertical deviation allowed
+const swipeThreshold    = 50;
+const verticalThreshold = 30;
+let isSidebarOpen       = false;
 
-
-document.addEventListener("DOMContentLoaded", function () {
-    const navbar = document.getElementById("navbar");
-    const toggleButton = document.getElementById("toggle-navbar");
-    const hamburger = document.getElementById("hamburger");
-    const navLinks = document.querySelector(".nav-links");
-  
-    toggleButton.addEventListener("click", function () {
-      if (navbar.classList.contains("collapsed")) {
-        navbar.classList.remove("collapsed");
-        toggleButton.textContent = "Hide Navbar";
-      } else {
-        navbar.classList.add("collapsed");
-        toggleButton.textContent = "Show Navbar";
-      }
-    });
-  
-    // (Optional) Toggle mobile navigation when hamburger is clicked
-    hamburger.addEventListener("click", function () {
-      navLinks.classList.toggle("active");
-    });
-  });
-  // side bar content: 
-document.addEventListener('DOMContentLoaded', function() {
+// Toggle sidebar (handle & overlay)
+function toggleSidebar() {
   const sidebar = document.getElementById('sidebar');
-  const handle = document.getElementById('sidebarHandle');
+  const handle  = document.getElementById('sidebarHandle');
   const overlay = document.getElementById('overlay');
-  let isOpen = false;
 
-  handle.addEventListener('click', toggleSidebar);
-  
-  overlay.addEventListener('click', function() {
-      if (isOpen) toggleSidebar();
-  });
+  isSidebarOpen = !isSidebarOpen;
+  sidebar.classList.toggle('open', isSidebarOpen);
+  overlay.classList.toggle('active', isSidebarOpen);
+  handle.style.right = isSidebarOpen ? '0' : '-60px';
+}
 
-  function toggleSidebar() {
-    isOpen = !isOpen;
-    sidebar.classList.toggle('open', isOpen);
-    overlay.classList.toggle('active', isOpen);
-    
-    if (!isOpen) {
-        handle.style.right = '-60px';
-    }
+// Handle horizontal swipe for sidebar
+function handleSwipe() {
+  const dx = touchEndX - touchStartX;
+  const dy = touchEndY - touchStartY;
+  if (Math.abs(dx) > Math.abs(dy) && Math.abs(dy) < verticalThreshold) {
+    if (dx > swipeThreshold && !isSidebarOpen) toggleSidebar();
+    if (dx < -swipeThreshold && isSidebarOpen) toggleSidebar();
   }
+}
 
-  // Optional: Add hover effect
-  handle.addEventListener('mouseenter', function() {
-      if (!isOpen) handle.style.right = '-55px';
+document.addEventListener('DOMContentLoaded', () => {
+  // ─── Theme Toggle ─────────────────────────────────────────────
+  const themeBtn = document.getElementById('theme-toggle');
+  themeBtn.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');
+    const isDark = document.documentElement.classList.contains('dark');
+    themeBtn.setAttribute(
+      'aria-label',
+      isDark ? 'Disable dark mode' : 'Enable dark mode'
+    );
   });
-  
-  handle.addEventListener('mouseleave', function() {
-      if (!isOpen) handle.style.right = '-60px';
+
+  // ─── Mobile Menu Toggle ────────────────────────────────────────
+  const menuBtn = document.getElementById('menu-toggle');
+  const navbar  = document.querySelector('.navbar');
+  menuBtn.addEventListener('click', () => {
+    const open = navbar.classList.toggle('menu-open');
+    menuBtn.setAttribute('aria-expanded', open);
+    menuBtn.setAttribute(
+      'aria-label',
+      open ? 'Close menu' : 'Open menu'
+    );
+    menuBtn.classList.toggle('is-open', open);
+  });
+  // Close mobile menu when a link is clicked
+  document
+    .querySelectorAll('.mobile-menu__list a')
+    .forEach(link => {
+      link.addEventListener('click', () => {
+        if (navbar.classList.contains('menu-open')) {
+          menuBtn.click();
+        }
+      });
+    });
+
+  // ─── Sidebar Toggle & Hover ───────────────────────────────────
+  const handleEl = document.getElementById('sidebarHandle');
+  const overlay  = document.getElementById('overlay');
+  handleEl.addEventListener('click', toggleSidebar);
+  overlay.addEventListener('click', () => {
+    if (isSidebarOpen) toggleSidebar();
+  });
+  handleEl.addEventListener('mouseenter', () => {
+    if (!isSidebarOpen) handleEl.style.right = '-55px';
+  });
+  handleEl.addEventListener('mouseleave', () => {
+    if (!isSidebarOpen) handleEl.style.right = '-60px';
   });
 });
 
-document.addEventListener('touchstart', function(e) {
+// ─── Touch / Swipe Listeners ───────────────────────────────────
+document.addEventListener('touchstart', e => {
   touchStartX = e.changedTouches[0].screenX;
   touchStartY = e.changedTouches[0].screenY;
 });
 
-document.addEventListener('touchmove', function(e) {
-  e.preventDefault(); // Prevent scrolling during swipe
-}, { passive: false });
+document.addEventListener(
+  'touchmove',
+  e => e.preventDefault(),
+  { passive: false }
+);
 
-document.addEventListener('touchend', function(e) {
+document.addEventListener('touchend', e => {
   touchEndX = e.changedTouches[0].screenX;
   touchEndY = e.changedTouches[0].screenY;
   handleSwipe();
 });
-
-function handleSwipe() {
-  const deltaX = touchEndX - touchStartX;
-  const deltaY = touchEndY - touchStartY;
-  
-  // Check if swipe is primarily horizontal
-  if (Math.abs(deltaX) > Math.abs(deltaY)) {
-      // Check vertical deviation is within threshold
-      if (Math.abs(deltaY) < verticalThreshold) {
-          // Right swipe 
-          if (deltaX > swipeThreshold && !isOpen) {
-              toggleSidebar();
-          }
-          // Left swipe
-          else if (deltaX < -swipeThreshold && isOpen) {
-              toggleSidebar();
-          }
-      }
-  }
-}
-

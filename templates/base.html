@@ -14,27 +14,60 @@
   {% block extra_head %}{% endblock %}
 </head>
 <body>
-  <header>
-    <nav class="navbar" id="navbar">
-      <div class="brand">My Portfolio</div>
-      
-      <!-- Hamburger for mobile nav -->
-      <div class="hamburger" id="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+ <header>
+  <nav class="navbar" role="navigation">
+    <div class="navbar__inner container">
+      <!-- Logo -->
+      <a href="{{ url_for('home') }}" class="navbar__logo">
+        My <span class="highlight">Portfolio</span>
+      </a>
 
-      <!-- Toggle button for collapsing/expanding navbar -->
-      <button id="toggle-navbar" class="toggle-navbar">Hide Navbar</button>
-      
-      <ul class="nav-links">
+      <!-- Desktop Links -->
+      <ul class="navbar__links">
+        <li class="navbar__item">
+          <a href="{{ url_for('home') }}" class="navbar__link">Home</a>
+        </li>
+        <li class="navbar__item">
+          <a href="{{ url_for('projects') }}" class="navbar__link">Projects</a>
+        </li>
+        <li class="navbar__item">
+          <a href="{{ url_for('contact') }}" class="navbar__link">Contact</a>
+        </li>
+      </ul>
+
+      <!-- Controls: Theme & Mobile Menu -->
+      <div class="navbar__controls">
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="navbar__btn" aria-label="Toggle dark mode">
+          <!-- Sun / Moon SVG icons can be toggled via JS -->
+          <svg class="icon icon--sun" viewBox="0 0 24 24"><!-- … --></svg>
+          <svg class="icon icon--moon" viewBox="0 0 24 24"><!-- … --></svg>
+        </button>
+
+        <!-- Hamburger / Menu Toggle -->
+        <button
+          id="menu-toggle"
+          class="navbar__btn navbar__btn--menu"
+          aria-label="Open menu"
+          aria-expanded="false"
+        >
+          <span class="menu-bar"></span>
+          <span class="menu-bar"></span>
+          <span class="menu-bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Full-Screen Menu -->
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+      <ul class="mobile-menu__list">
         <li><a href="{{ url_for('home') }}">Home</a></li>
         <li><a href="{{ url_for('projects') }}">Projects</a></li>
         <li><a href="{{ url_for('contact') }}">Contact</a></li>
       </ul>
-    </nav>
-  </header>
+    </div>
+  </nav>
+</header>
   <div class="sidebar" id="sidebar">
     <div class="sidebar-handle" id="sidebarHandle">
         <span>More</span>

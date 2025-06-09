@@ -2,25 +2,71 @@
 
 {% block title %}Amrzxk{% endblock %}
 
+{% block head_extra %}
+  <!-- AOS Library for scroll animations -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
   <section class="hero">
-    <div class="hero-content">
-      <h1>Welcome to My Portfolio</h1>
+    <div class="hero-content" data-aos="fade-up">
+      <h1 id="typed-title"></h1>
       <p class="intro-text">
-        My name is Amr Zakariya and I'm an aspiring DevOps Engineer.
-        I'm a Computer Science and AI student at Helwan University with
-        a strong focus on AWS cloud technologies, DevOps, and security.
-        I have experience in backend development using Python,
-        building efficient and scalable applications.
-        My skills include cloud architecture, automation,
-        infrastructure as code, and secure system design.
-        Through certifications and hands-on projects,
-        I’ve developed a deep understanding of backend logic,
-        API integrations, and cloud-native solutions.
-        I enjoy solving complex problems, optimizing systems,
-        and continuously expanding my expertise in cloud computing.
+        I’m <strong>Amr Zakariya</strong>, an aspiring DevOps & Cloud Engineer
+        with a Computer Science & AI background from Helwan University.
+        My passion lies in AWS, Infrastructure-as-Code, CI/CD pipelines,
+        and secure, scalable architectures.
       </p>
-      <a href="{{ url_for('projects') }}" class="cta-button">View My Projects</a>
+      <a href="#skills" class="cta-button">Explore My Skills</a>
+    </div>
+    <div class="scroll-down" onclick="document.querySelector('#skills').scrollIntoView({ behavior: 'smooth' })">
+      ↓
     </div>
   </section>
+
+  <section id="skills" class="skills-section">
+    <h2 data-aos="fade-up">Core Skills & Tools</h2>
+    <div class="skill-cards">
+      <div class="skill-card" data-aos="fade-right">
+        <img src="{{ url_for('static', filename='images/awsLogo.webp') }}" alt="AWS">
+        <div class="bar">
+          <div class="fill" style="--percent:90%"></div>
+        </div>
+        <span>AWS (90%)</span>
+      </div>
+      <div class="skill-card" data-aos="fade-up">
+        <img src="{{ url_for('static', filename='images/DockerLogo.webp') }}" alt="Docker">
+        <div class="bar">
+          <div class="fill" style="--percent:85%"></div>
+        </div>
+        <span>Docker (85%)</span>
+      </div>
+      <div class="skill-card" data-aos="fade-left">
+        <img src="{{ url_for('static', filename='images/TerraformLogo.png') }}" alt="Terraform">
+        <div class="bar">
+          <div class="fill" style="--percent:80%"></div>
+        </div>
+        <span>Terraform (80%)</span>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block scripts_extra %}
+  <!-- AOS & Typewriter -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init();
+
+    // Simple Typewriter
+    const txt = 'Welcome to My Portfolio';
+    let i = 0;
+    function type() {
+      if (i < txt.length) {
+        document.getElementById('typed-title').textContent += txt.charAt(i++);
+        setTimeout(type, 100);
+      }
+    }
+    window.addEventListener('DOMContentLoaded', type);
+  </script>
 {% endblock %}
