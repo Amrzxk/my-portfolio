@@ -272,10 +272,6 @@ docker push ghcr.io/username/portfolio-app:latest
 - **Documentation**: Comprehensive inline comments
 - **Testing**: Pytest with Flask test client
 
-## 📄 **License**
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## 🎉 **Acknowledgments**
 
 - **Flask Community**: Excellent documentation and ecosystem
