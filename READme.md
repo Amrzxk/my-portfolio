@@ -139,8 +139,8 @@ PortfolioWeb/
 ### **Local Development**
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/portfolio-web.git
-cd portfolio-web
+   git clone https://github.com/yourusername/portfolio-web.git
+   cd portfolio-web
 
 # Install dependencies
 pip install -r requirements-dev.txt

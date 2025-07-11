@@ -19,7 +19,7 @@ jobs:
   lint-and-test:
     name: Lint and Test
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4

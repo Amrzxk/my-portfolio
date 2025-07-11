@@ -277,7 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
       submitBtn.classList.remove('loading');
       submitBtn.disabled = false;
     }
-  });
+});
 
   // ──────────────────────────────────────────────────────────────
   // Scroll to Top Functionality

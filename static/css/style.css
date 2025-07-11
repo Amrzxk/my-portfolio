@@ -1075,7 +1075,7 @@ body.menu-open .mobile-menu__list {
   .hero-name {
     font-size: 2.5rem;
   }
-  
+
   .hero-role {
     font-size: 1.5rem;
   }
@@ -1102,7 +1102,7 @@ body.menu-open .mobile-menu__list {
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
   }
-  
+
   .contact-content {
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -1127,7 +1127,7 @@ body.menu-open .mobile-menu__list {
   .container {
     padding: 0 0.75rem;
   }
-  
+
   .hero-name {
     font-size: 2rem;
   }
