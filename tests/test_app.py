@@ -78,4 +78,5 @@ class TestAppConfiguration:
     def test_testing_mode(self, client):
         """Test that testing mode can be enabled."""
         app.config["TESTING"] = True
-        assert app.config["TESTING"] is True 
+        assert app.config["TESTING"] is True
+         
