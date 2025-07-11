@@ -48,7 +48,7 @@ def projects():
         {
             "title": "Cloud Infrastructure Automation",
             "description": "Automated AWS infrastructure deployment using Terraform and Ansible, implementing Infrastructure as Code best practices.",
-            "image": "images/projects/cloud-infra.jpg",
+            "image": "images/projects/cloud-infra.png",
             "technologies": ["AWS", "Terraform", "Ansible", "Python"],
             "github_url": "https://github.com/yourusername/cloud-infra",
             "demo_url": None,
@@ -56,7 +56,7 @@ def projects():
         {
             "title": "DevOps Pipeline Automation",
             "description": "Built CI/CD pipelines using Jenkins and GitHub Actions for automated testing and deployment.",
-            "image": "images/projects/devops.jpg",
+            "image": "images/projects/devops.JPG",
             "technologies": ["Jenkins", "GitHub Actions", "Docker", "Kubernetes"],
             "github_url": "https://github.com/yourusername/devops-pipeline",
             "demo_url": None,
@@ -64,7 +64,7 @@ def projects():
         {
             "title": "Python Microservices",
             "description": "Developed scalable microservices using Python and FastAPI, deployed on Kubernetes.",
-            "image": "images/projects/microservices.jpg",
+            "image": "images/projects/portfolio.JPG",
             "technologies": ["Python", "FastAPI", "Kubernetes", "PostgreSQL"],
             "github_url": "https://github.com/yourusername/python-microservices",
             "demo_url": "https://demo.yourdomain.com",
