@@ -11,12 +11,16 @@ from flask import (
     send_from_directory,
     url_for,
 )
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 app = Flask(__name__)
 
 # Configuration
-app.config["SECRET_KEY"] = "your-secret-key-here"
-
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "your-secret-key-here")
+app.config["CONTACT_EMAIL"] = os.environ.get("CONTACT_EMAIL", "amrzakariya2018@gmail.com")
 
 # Template filter for current year
 @app.template_filter("current_year")
@@ -74,29 +78,119 @@ def projects():
 def contact():
     if request.method == "POST":
         try:
-            name = request.form.get("name")
-            email = request.form.get("email")
-            message = request.form.get("message")
+            # Get form data
+            name = request.form.get("name", "").strip()
+            email = request.form.get("email", "").strip()
+            message = request.form.get("message", "").strip()
 
-            # For now, just return success (later we'll add email functionality)
+            # Basic validation
+            if not name or not email or not message:
+                return jsonify({
+                    "success": False,
+                    "message": "All fields are required."
+                })
+
+            if len(name) < 2:
+                return jsonify({
+                    "success": False,
+                    "message": "Name must be at least 2 characters long."
+                })
+
+            if len(message) < 10:
+                return jsonify({
+                    "success": False,
+                    "message": "Message must be at least 10 characters long."
+                })
+
+            # Check if email configuration is available
+            if not app.config["CONTACT_EMAIL"]:
+                # Fallback: Log to console if email not configured
+                print(f"Contact form submission (Email not configured):")
+                print(f"Name: {name}")
+                print(f"Email: {email}")
+                print(f"Message: {message}")
+                
+                return jsonify({
+                    "success": True,
+                    "message": "Message received! I'll get back to you soon. (Email configuration pending)"
+                })
+
+            # Create email message
+            subject = f"Portfolio Contact: Message from {name}"
+            
+            # HTML email body
+            html_body = f"""
+            <html>
+                <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+                    <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+                        <h2 style="color: #0ea5e9; border-bottom: 2px solid #0ea5e9; padding-bottom: 10px;">
+                            New Contact Form Submission
+                        </h2>
+                        
+                        <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                            <p><strong>Name:</strong> {name}</p>
+                            <p><strong>Email:</strong> {email}</p>
+                            <p><strong>Submitted:</strong> {datetime.now().strftime('%B %d, %Y at %I:%M %p')}</p>
+                        </div>
+                        
+                        <div style="margin: 20px 0;">
+                            <h3 style="color: #374151;">Message:</h3>
+                            <div style="background-color: #ffffff; padding: 15px; border-left: 4px solid #0ea5e9; border-radius: 4px;">
+                                {message.replace('\n', '<br>')}
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 12px; color: #6b7280;">
+                            <p>This message was sent from your portfolio website contact form.</p>
+                            <p>Reply directly to this email to respond to {name}.</p>
+                        </div>
+                    </div>
+                </body>
+            </html>
+            """
+            
+            # Plain text version
+            text_body = f"""
+New Contact Form Submission
+
+Name: {name}
+Email: {email}
+Submitted: {datetime.now().strftime('%B %d, %Y at %I:%M %p')}
+
+Message:
+{message}
+
+---
+This message was sent from your portfolio website contact form.
+Reply directly to this email to respond to {name}.
+            """
+
+            # Create message
+            # This part of the code is now handled by EmailJS, so we just log the submission
             print(f"Contact form submission:")
             print(f"Name: {name}")
             print(f"Email: {email}")
             print(f"Message: {message}")
 
-            return jsonify(
-                {
-                    "success": True,
-                    "message": "Message received! (Email functionality will be added later)",
-                }
-            )
+            return jsonify({
+                "success": True,
+                "message": "Message received! I'll get back to you soon."
+            })
+
         except Exception as e:
-            return jsonify(
-                {
-                    "success": False,
-                    "message": "Failed to send message. Please try again.",
-                }
-            )
+            # Log the error
+            print(f"Error sending contact email: {str(e)}")
+            
+            # Fallback: Still log to console
+            print(f"Contact form submission (Email failed):")
+            print(f"Name: {request.form.get('name', '')}")
+            print(f"Email: {request.form.get('email', '')}")
+            print(f"Message: {request.form.get('message', '')}")
+            
+            return jsonify({
+                "success": False,
+                "message": "Failed to send message. Please try emailing me directly at amrzakariya2018@gmail.com"
+            })
 
     return render_template("contact.html")
 
@@ -146,6 +240,7 @@ def api_skills():
             "category": "Cloud & Infrastructure",
             "skills": [
                 {"name": "AWS", "icon": "images/awsLogo.png"},
+                {"name": "EC2", "icon": "images/EC2.webp"},
                 {"name": "Terraform", "icon": "images/TerraformLogo.png"},
                 {"name": "Docker", "icon": "images/DockerLogo.webp"},
                 {"name": "Kubernetes", "icon": "images/kubernetesLogo.png"},
@@ -162,8 +257,11 @@ def api_skills():
         {
             "category": "DevOps & Automation",
             "skills": [
+                {"name": "Git", "icon": "images/git.png"},
+                {"name": "GitHub Actions", "icon": "images/github-actions.webp"},
                 {"name": "Jenkins", "icon": "images/jenkinsLogo.png"},
                 {"name": "Ansible", "icon": "images/ansibleLogo.png"},
+                {"name": "YAML", "icon": "images/yml.png"},
             ],
         },
     ]

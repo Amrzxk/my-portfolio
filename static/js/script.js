@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileMenuLinks = document.querySelectorAll('.mobile-menu__link');
 
   menuToggle?.addEventListener('click', () => {
-    const isOpen = navbar.classList.toggle('menu-open');
+    const isOpen = document.body.classList.toggle('menu-open');
     menuToggle.setAttribute('aria-expanded', isOpen.toString());
     menuToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
     
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Close mobile menu when clicking on a link
   mobileMenuLinks.forEach(link => {
     link.addEventListener('click', () => {
-      navbar.classList.remove('menu-open');
+      document.body.classList.remove('menu-open');
       menuToggle?.setAttribute('aria-expanded', 'false');
       menuToggle?.setAttribute('aria-label', 'Open menu');
       document.body.style.overflow = '';
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Close mobile menu if open
-        navbar.classList.remove('menu-open');
+        document.body.classList.remove('menu-open');
         menuToggle?.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
       }
@@ -176,8 +176,14 @@ document.addEventListener('DOMContentLoaded', () => {
   loadSkills();
 
   // ──────────────────────────────────────────────────────────────
-  // Contact Form Handling
+  // Contact Form Handling with EmailJS
   // ──────────────────────────────────────────────────────────────
+  
+  // Initialize EmailJS
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init("LypSjSwEPw2waK0Hp"); // EmailJS public key
+  }
+  
   const contactForm = document.getElementById('contact-form');
   
   contactForm?.addEventListener('submit', async function(e) {
@@ -193,18 +199,32 @@ document.addEventListener('DOMContentLoaded', () => {
     statusDiv.innerHTML = '';
     
     try {
+      // Check if EmailJS is available
+      if (typeof emailjs === 'undefined') {
+        throw new Error('EmailJS not loaded');
+      }
+      
+      // Get form data
       const formData = new FormData(this);
-      const response = await fetch('/contact', {
-        method: 'POST',
-        body: formData
-      });
+      const templateParams = {
+        from_name: formData.get('name'),
+        from_email: formData.get('email'),
+        message: formData.get('message'),
+        to_email: 'amrzakariya2018@gmail.com', // Your email
+        reply_to: formData.get('email')
+      };
       
-      const result = await response.json();
+             // Send email via EmailJS
+       const response = await emailjs.send(
+         'service_3dsm0dd',    // EmailJS service ID
+         'template_numdic8',   // EmailJS template ID
+         templateParams
+       );
       
-      if (result.success) {
+      if (response.status === 200) {
         statusDiv.innerHTML = `
           <div class="success-message">
-            ✓ ${result.message}
+            ✓ Message sent successfully! I'll get back to you soon.
           </div>
         `;
         this.reset();
@@ -216,18 +236,43 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000);
         
       } else {
+        throw new Error('EmailJS response error');
+      }
+      
+    } catch (error) {
+      console.error('Contact form error:', error);
+      
+      // Fallback to Flask backend
+      try {
+        const formData = new FormData(this);
+        const response = await fetch('/contact', {
+          method: 'POST',
+          body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          statusDiv.innerHTML = `
+            <div class="success-message">
+              ✓ ${result.message}
+            </div>
+          `;
+          this.reset();
+        } else {
+          statusDiv.innerHTML = `
+            <div class="error-message">
+              ✗ ${result.message}
+            </div>
+          `;
+        }
+      } catch (fallbackError) {
         statusDiv.innerHTML = `
           <div class="error-message">
-            ✗ ${result.message}
+            ✗ Something went wrong. Please try again later or email me directly at amrzakariya2018@gmail.com
           </div>
         `;
       }
-    } catch (error) {
-      statusDiv.innerHTML = `
-        <div class="error-message">
-          ✗ Something went wrong. Please try again later.
-        </div>
-      `;
     } finally {
       submitBtn.classList.remove('loading');
       submitBtn.disabled = false;

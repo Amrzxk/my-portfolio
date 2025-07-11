@@ -9,6 +9,9 @@ services:
       - FLASK_ENV=production
       - PORT=5000
       - PYTHONPATH=/app
+      # Minimal configuration for EmailJS setup
+      - SECRET_KEY=${SECRET_KEY:-default-secret-key-for-docker}
+      - CONTACT_EMAIL=${CONTACT_EMAIL:-amrzakariya2018@gmail.com}
     volumes:
       # Only mount resume directory to persist uploaded resumes
       - ./static/resume:/app/static/resume:ro

@@ -13,10 +13,15 @@
   <link rel="icon" href="{{ url_for('static', filename='images/amr.JPG') }}" type="image/x-icon">
   <link rel="shortcut icon" href="{{ url_for('static', filename='images/amr.JPG') }}" type="image/x-icon">
   
-  <title>{% block title %}Amr Zakariya - DevOps Engineer Portfolio{% endblock %}</title>
+  <!-- Title and meta tags -->
+  <title>{% block title %}Amr Zakariya - Cloud & DevOps Engineer{% endblock %}</title>
   
   <!-- CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  
+  <!-- EmailJS for contact form -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   
   {% block extra_head %}{% endblock %}
 </head>
@@ -94,23 +99,23 @@
         </button>
       </div>
     </div>
-
-    <!-- Mobile Full-Screen Menu -->
-    <div class="mobile-menu" role="dialog" aria-modal="true" aria-hidden="true">
-      <ul class="mobile-menu__list" role="menu">
-        <li role="menuitem"><a href="{{ url_for('home') }}" class="mobile-menu__link">Home</a></li>
-        <li role="menuitem"><a href="#about" class="mobile-menu__link">About</a></li>
-        <li role="menuitem"><a href="#projects" class="mobile-menu__link">Projects</a></li>
-        <li role="menuitem">
-          <a href="{{ url_for('resume', action='view') }}" class="mobile-menu__link" target="_blank">📄 View Resume</a>
-        </li>
-        <li role="menuitem">
-          <a href="{{ url_for('resume', action='download') }}" class="mobile-menu__link">⬇️ Download Resume</a>
-        </li>
-        <li role="menuitem"><a href="#contact" class="mobile-menu__link">Contact</a></li>
-      </ul>
-    </div>
   </nav>
+
+  <!-- Mobile Full-Screen Menu -->
+  <div class="mobile-menu" role="dialog" aria-modal="true" aria-hidden="true">
+    <ul class="mobile-menu__list" role="menu">
+      <li role="menuitem"><a href="{{ url_for('home') }}" class="mobile-menu__link">Home</a></li>
+      <li role="menuitem"><a href="#about" class="mobile-menu__link">About</a></li>
+      <li role="menuitem"><a href="#projects" class="mobile-menu__link">Projects</a></li>
+      <li role="menuitem">
+        <a href="{{ url_for('resume', action='view') }}" class="mobile-menu__link" target="_blank">📄 View Resume</a>
+      </li>
+      <li role="menuitem">
+        <a href="{{ url_for('resume', action='download') }}" class="mobile-menu__link">⬇️ Download Resume</a>
+      </li>
+      <li role="menuitem"><a href="#contact" class="mobile-menu__link">Contact</a></li>
+    </ul>
+  </div>
 
   <!-- Main Content -->
   <main id="main-content" role="main">

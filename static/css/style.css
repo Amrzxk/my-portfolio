@@ -363,39 +363,77 @@ html.dark .icon--moon {
   transition: var(--transition);
 }
 
-/* Mobile menu */
+/* Mobile menu - improved overlay design */
 .mobile-menu {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--clr-bg);
+  background-color: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: translateY(-100%);
-  transition: var(--transition);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
   z-index: 999;
+  padding: 2rem;
+  overflow-y: auto;
 }
 
-.navbar.menu-open .mobile-menu {
-  transform: translateY(0);
+body.menu-open .mobile-menu {
+  opacity: 1;
+  visibility: visible;
 }
 
 .mobile-menu__list {
   list-style: none;
   text-align: center;
+  background-color: var(--clr-bg);
+  border-radius: var(--radius-xl);
+  padding: 2rem 1.5rem;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--clr-border);
+  width: 100%;
+  max-width: 320px;
+  max-height: 80vh;
+  overflow-y: auto;
+  transform: scale(0.8);
+  transition: transform 0.3s ease;
+  margin: auto;
+}
+
+body.menu-open .mobile-menu__list {
+  transform: scale(1);
 }
 
 .mobile-menu__list li {
   margin: 1rem 0;
+  border-bottom: 1px solid var(--clr-border);
+  padding-bottom: 0.75rem;
+}
+
+.mobile-menu__list li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
 }
 
 .mobile-menu__link {
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 500;
   color: var(--clr-text);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  transition: var(--transition);
+  display: block;
+}
+
+.mobile-menu__link:hover {
+  background-color: var(--clr-primary);
+  color: white;
+  transform: translateY(-2px);
 }
 
 /*--------------------------------------------------------------
@@ -591,9 +629,24 @@ html.dark .icon--moon {
 
 .about-image {
   position: relative;
-  width: 580px;
-  height: 620px;
+  width: 100%;            /* allow it to scale with its parent */
+  max-width: 480px;       /* large-screen cap */
+  aspect-ratio: 4 / 5;    /* keeps portrait ratio while allowing height to adjust */
   flex-shrink: 0;
+}
+
+/* Responsive tweaks – ensure image doesn’t dominate small viewports */
+@media (max-width: 768px) {
+  .about-image {
+    max-width: 320px;
+    margin-inline: auto;  /* center in single-column layout */
+  }
+}
+
+@media (max-width: 480px) {
+  .about-image {
+    max-width: 250px;
+  }
 }
 
 .profile-image {
@@ -1008,6 +1061,15 @@ html.dark .icon--moon {
   
   .navbar__btn--menu {
     display: flex !important;
+  }
+  
+  /* Hide ALL dropdown content on mobile */
+  .navbar__dropdown {
+    display: none !important;
+  }
+  
+  .navbar__dropdown-content {
+    display: none !important;
   }
   
   .hero-name {
