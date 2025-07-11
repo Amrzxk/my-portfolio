@@ -123,10 +123,10 @@ jobs:
     - name: Test Docker Compose
       run: |
         # Test production compose
-        docker-compose -f docker-compose.yml config
+        docker compose -f docker-compose.yml config
         
         # Test development compose
-        docker-compose -f docker-compose.dev.yml config
+        docker compose -f docker-compose.dev.yml config
 
     - name: Security scan with Trivy
       uses: aquasecurity/trivy-action@0.28.0
