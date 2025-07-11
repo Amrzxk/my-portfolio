@@ -117,8 +117,8 @@ jobs:
         curl -f http://localhost:5000/ || exit 1
         curl -f http://localhost:5000/api/skills || exit 1
         
-        # Test that resume endpoint exists (might 404 without PDF)
-        curl -s -o /dev/null -w "%{http_code}" http://localhost:5000/resume | grep -E "200|404" || exit 1
+        # Test that resume endpoint exists (might 404 without PDF or 302 redirect)
+        curl -s -o /dev/null -w "%{http_code}" http://localhost:5000/resume | grep -E "200|302|404" || exit 1
 
     - name: Test Docker Compose
       run: |
