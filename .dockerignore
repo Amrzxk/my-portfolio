@@ -1,6 +1,17 @@
-# Version control
+# Git
 .git
 .gitignore
+.github
+
+# Documentation
+README.md
+*.md
+
+# Development files
+.vscode
+.idea
+*.swp
+*.swo
 
 # Python
 __pycache__
@@ -8,58 +19,53 @@ __pycache__
 *.pyo
 *.pyd
 .Python
+env
 pip-log.txt
 pip-delete-this-directory.txt
 .tox
 .coverage
 .coverage.*
 .pytest_cache
+.cache
+nosetests.xml
+coverage.xml
 *.cover
+*.log
+.git
+.mypy_cache
+.pytest_cache
 .hypothesis
 
 # Virtual environments
-env
-venv
-ENV
-env.bak
-venv.bak
-
-# IDEs
-.vscode
-.idea
-*.swp
-*.swo
-*~
+venv/
+env/
+ENV/
 
 # OS
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
 
-# Node.js (if any frontend build tools)
+# Node.js (if any remain)
 node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Logs
-*.log
-logs
+# Development tools
+requirements-dev.txt
+pytest.ini
+pyproject.toml
 
-# Development files
-README.md
-LICENSE
-.env.example
+# CI/CD
+.github/
 
-# Docker files
-Dockerfile*
+# Docker
 docker-compose*.yml
-.dockerignore
+Dockerfile*
 
-# Build artifacts
-dist
-build 
+# Tests
+tests/
+
+# Other
+*.tmp
+*.bak 
