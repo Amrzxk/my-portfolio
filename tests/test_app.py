@@ -79,4 +79,3 @@ class TestAppConfiguration:
         """Test that testing mode can be enabled."""
         app.config["TESTING"] = True
         assert app.config["TESTING"] is True
-         
