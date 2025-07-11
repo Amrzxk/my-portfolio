@@ -1,6 +1,7 @@
 import os
 from datetime import datetime
 
+from dotenv import load_dotenv
 from flask import (
     Flask,
     abort,
@@ -11,7 +12,6 @@ from flask import (
     send_from_directory,
     url_for,
 )
-from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
